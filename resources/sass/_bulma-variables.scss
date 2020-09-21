@@ -1,0 +1,49 @@
+/************************************
+    MAIN COLORS
+*************************************/
+$accent_color: #DABC60;
+
+/************************************
+    NAVIGATION BAR VARIABLES
+*************************************/
+// Full width
+// $navbar-background-color: #ffffff3a;
+$navbar-background-color: rgba(26, 26, 26, 0.623);
+$navbar-item-color: #ffffff;
+$navbar-item-hover-color: $accent_color;
+$navbar-height: 6rem;
+$navbar-dropdown-arrow: $accent_color;
+$navbar-item-active-color: $accent_color;
+// Minimized
+$navbar-background-color-minimized: #1A1A1A;
+$navbar-height-minimized: 4rem;
+$navbar-dropdown-background-color: rgba(26, 26, 26, 0.623);
+// Dark navbar
+$dark-navbar-background-color: #1A1A1A;
+$modal-content-width: 800px;
+
+/************************************
+    OTHER VARIABLES
+*************************************/
+$card-shadow: none;
+$tabs-link-active-color: $accent_color;
+
+/************************************
+    STEPS VARIABLES
+*************************************/
+$steps-completed-color: $accent_color;
+$steps-active-color: $accent_color; 
+
+@import "../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../node_modules/bulma/sass/base/_all.sass";
+@import "../../node_modules/bulma/sass/elements/button.sass";
+@import "../../node_modules/bulma/sass/elements/container.sass";
+@import "../../node_modules/bulma/sass/elements/form.sass";
+@import "../../node_modules/bulma/sass/elements/title.sass";
+@import "../../node_modules/bulma/sass/components/navbar.sass";
+@import "../../node_modules/bulma/sass/layout/hero.sass";
+@import "../../node_modules/bulma/sass/layout/section.sass";
+@import "../../node_modules/bulma/sass/components/card.sass";
+@import "../../node_modules/bulma/sass/components/tabs.sass";
+@import "../../node_modules/bulma/sass/components/modal.sass";
+@import "../../node_modules/bulma-steps-component/bulma-steps.sass";

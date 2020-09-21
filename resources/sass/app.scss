@@ -1,0 +1,46 @@
+@import "variables";
+@import "bulma-variables";
+@import "~animate.css/animate.css";
+
+body > * {
+    font-family: "Roboto", sans-serif !important;
+}
+html {
+    background-image: url(/../images/page/tile.png);
+}
+#admin-page {
+    background-image: none;
+    background-color: white;
+    min-height: 100vh;
+}
+#checkout-page {
+    background-image: none;
+    background-color: white;
+    min-height: 100vh;
+}
+#payment-page {
+    background-image: none;
+    background-color: white;
+    min-height: 100vh;
+}
+#confirmation-page {
+    background-image: none;
+    background-color: white;
+    min-height: 100vh;
+}
+#product-item {
+    background: transparent !important;
+}
+.shop-section {
+    margin-top: $navbar-height;
+    height: 74vh;
+}
+#about-us {
+    text-align: justify;
+}
+#terms-page {
+    margin-top: 150px;
+}
+#terms-page > ol {
+    list-style-type: decimal;
+}
