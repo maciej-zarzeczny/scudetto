@@ -1,7 +1,6 @@
 <template>
   <section class="section gallery" id="gallery">
     <div class="text-separator-parent">
-      <h1>Gallery</h1>
       <div class="text-separator"></div>
     </div>
 
