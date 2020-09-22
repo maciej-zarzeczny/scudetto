@@ -40,6 +40,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     product: Object,
@@ -55,15 +72,15 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onWindowResize: function onWindowResize() {
       var width = window.innerWidth;
-      var imageContainer = document.getElementsByClassName('shop-image-parent');
+      var imageContainer = document.getElementsByClassName("shop-image-parent");
 
       for (var i = 0; i < imageContainer.length; i++) {
         if (width >= 769) {
-          imageContainer[i].style.height = 0.3 * width + 'px';
+          imageContainer[i].style.height = 0.3 * width + "px";
         } else if (width >= 400) {
-          imageContainer[i].style.height = 0.87 * width + 'px';
+          imageContainer[i].style.height = 0.87 * width + "px";
         } else {
-          imageContainer[i].style.height = 0.8 * width + 'px';
+          imageContainer[i].style.height = 0.8 * width + "px";
         }
       }
     }
@@ -73,7 +90,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isOnSale = true;
     }
 
-    window.addEventListener('resize', this.onWindowResize);
+    window.addEventListener("resize", this.onWindowResize);
     this.onWindowResize();
   }
 });

@@ -2011,7 +2011,8 @@ __webpack_require__.r(__webpack_exports__);
       imagesNames: [],
       sizesChecked: [],
       sizesNames: [],
-      quantities: []
+      quantities: [],
+      isLoading: false
     };
   },
   methods: {
@@ -2030,6 +2031,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.discountPrice == "") {
         alert("Nalezy podac cenę promocyjną (0 w przypadku braku promocji)");
       } else {
+        this.isLoading = true;
         var config = {
           headers: {
             "content-type": "multipart/form-data"
@@ -2058,8 +2060,11 @@ __webpack_require__.r(__webpack_exports__);
         axios.post("/products", formData, config).then(function (response) {
           _this.clearDataFields();
 
+          _this.isLoading = false;
+          _this.images = [];
           alert("Pomyślnie dodano nowy produkt");
         })["catch"](function (error) {
+          _this.isLoading = false;
           alert("Wystąpił błąd " + error);
         });
       }
@@ -3837,6 +3842,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this.isLoading = false;
 
           if (response.data == "success") {
+            _this.uploadImages = [];
             axios.get("/gallery").then(function (response) {
               _this.images = response.data;
             });
@@ -9201,7 +9207,13 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _c("div", { staticClass: "control" }, [
+            _c(
+              "button",
+              { class: ["button is-primary", { "is-loading": _vm.isLoading }] },
+              [_vm._v("Dodaj")]
+            )
+          ])
         ],
         2
       )
@@ -9261,14 +9273,6 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("span", { staticClass: "file-label" }, [_vm._v("Dodaj zdjęcia...")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "control" }, [
-      _c("button", { staticClass: "button is-primary" }, [_vm._v("Dodaj")])
     ])
   }
 ]

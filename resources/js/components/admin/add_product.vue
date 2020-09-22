@@ -160,7 +160,7 @@
         </div>
 
         <div class="control">
-          <button class="button is-primary">Dodaj</button>
+          <button v-bind:class="['button is-primary', {'is-loading': isLoading}]">Dodaj</button>
         </div>
       </form>
     </section>
@@ -187,6 +187,7 @@ export default {
       sizesChecked: [],
       sizesNames: [],
       quantities: [],
+      isLoading: false,
     };
   },
   methods: {
@@ -201,6 +202,7 @@ export default {
       if (this.discountPrice == "") {
         alert("Nalezy podac cenę promocyjną (0 w przypadku braku promocji)");
       } else {
+        this.isLoading = true;
         const config = {
           headers: { "content-type": "multipart/form-data" },
         };
@@ -229,9 +231,13 @@ export default {
           .post("/products", formData, config)
           .then((response) => {
             this.clearDataFields();
+            this.isLoading = false;
+            this.images = [];
+
             alert("Pomyślnie dodano nowy produkt");
           })
           .catch((error) => {
+            this.isLoading = false;
             alert("Wystąpił błąd " + error);
           });
       }

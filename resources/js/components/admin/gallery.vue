@@ -115,6 +115,8 @@ export default {
           .then((response) => {
             this.isLoading = false;
             if (response.data == "success") {
+              this.uploadImages = [];
+
               axios.get("/gallery").then((response) => {
                 this.images = response.data;
               });
