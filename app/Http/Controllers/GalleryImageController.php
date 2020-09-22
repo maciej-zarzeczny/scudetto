@@ -44,9 +44,8 @@ class GalleryImageController extends Controller
             $galleryImage->save();
             
             $image = $request->file('images')[$i];
-            
-            $resizedImage = Image::make($image->path());
-            dd('ok 2');
+            $resizedImage = Image::make($image->getRealPath());
+
             $resizedImage->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
