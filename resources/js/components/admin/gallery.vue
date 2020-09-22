@@ -31,7 +31,10 @@
           </label>
         </div>
         <div class="control">
-          <button class="button is-primary" @click="addNewPhotos()">Dodaj</button>
+          <button
+            v-bind:class="['button is-primary', {'is-loading': isLoading}]"
+            @click="addNewPhotos()"
+          >Dodaj</button>
         </div>
       </div>
       <table class="table is-fullwidth">
@@ -83,6 +86,7 @@ export default {
       uploadImagesNames: [],
       showModal: false,
       bigPhotoUrl: "",
+      isLoading: false,
     };
   },
   methods: {
@@ -91,6 +95,7 @@ export default {
     },
     addNewPhotos() {
       if (this.uploadImages.length > 0) {
+        this.isLoading = true;
         for (var i = 0; i < this.uploadImages.length; i++) {
           this.uploadImagesNames[i] =
             "/images/gallery/" + new Date().getTime() + i + ".png";
@@ -108,6 +113,7 @@ export default {
         axios
           .post("/gallery", formData, config)
           .then((response) => {
+            this.isLoading = false;
             if (response.data == "success") {
               axios.get("/gallery").then((response) => {
                 this.images = response.data;
@@ -115,6 +121,7 @@ export default {
             }
           })
           .catch((error) => {
+            this.isLoading = false;
             alert("Wystąpił błąd " + error);
           });
       } else {
