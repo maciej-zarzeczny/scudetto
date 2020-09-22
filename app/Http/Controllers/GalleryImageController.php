@@ -45,6 +45,7 @@ class GalleryImageController extends Controller
             
             $image = $request->file('images')[$i];
 
+            dd('ok');
             $resizedImage = Image::make($image->path());
 
             $resizedImage->resize(300, null, function ($constraint) {
@@ -52,8 +53,6 @@ class GalleryImageController extends Controller
             });
 
             $target_path = public_path($imagesUrls[$i]);
-
-            dd($target_path);
 
             $resizedImage->save($target_path);
         }                
