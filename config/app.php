@@ -163,13 +163,15 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
-        Illuminate\View\ViewServiceProvider::class,
-        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
-        Devpark\Transfers24\Providers\Transfers24ServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,        
+        
 
         /*
          * Package Service Providers...
          */
+        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
+        Devpark\Transfers24\Providers\Transfers24ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -228,7 +230,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

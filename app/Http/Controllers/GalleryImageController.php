@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\GalleryImage;
 use Illuminate\Http\Request;
+use Image;
 
 class GalleryImageController extends Controller
 {
@@ -33,7 +34,7 @@ class GalleryImageController extends Controller
      */
     public function store(Request $request)
     {
-        $imagesUrls = json_decode($request->imagesNames);
+        $imagesUrls = json_decode($request->imagesNames);                
 
         for ($i=0; $i<count($imagesUrls); $i++)
         {
@@ -41,8 +42,17 @@ class GalleryImageController extends Controller
                 'url' => $imagesUrls[$i]
             ]);
             $galleryImage->save();
+            
+            $image = $request->file('images')[$i];
+            $resizedImage = Image::make($image->path());
 
-            $request->file('images')[$i]->move(public_path('images/gallery'), $imagesUrls[$i]);
+            $resizedImage->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $target_path = public_path($imagesUrls[$i]);
+
+            $resizedImage->save($target_path);
         }                
 
         return response('success', 200);
