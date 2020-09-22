@@ -107,12 +107,12 @@ export default {
         }
       }
     },
-    getMorePhotos() {
-      axios.get("gallery-get/second").then((response) => {
-        this.hiddenImages = response.data;
-        this.showMorePhotos = true;
-        this.imagesUrls = this.images.concat(response.data);
-      });
+    async getMorePhotos() {
+      const response = await axios.get("gallery-get/second");
+
+      this.hiddenImages = response.data;
+      this.showMorePhotos = true;
+      this.imagesUrls = this.images.concat(response.data);
     },
     visibilityChanged(isVisible, entry) {
       if (isVisible) {
@@ -157,12 +157,13 @@ export default {
   },
   created() {
     window.addEventListener("keyup", this.keyPressed);
+  },
+  async mounted() {
+    const response = await axios.get("/gallery-get/first");
 
-    axios.get("/gallery-get/first").then((response) => {
-      this.images = response.data;
-      this.imagesReady = true;
-      this.imagesUrls = response.data;
-    });
+    this.images = response.data;
+    this.imagesReady = true;
+    this.imagesUrls = response.data;
   },
 };
 </script>
