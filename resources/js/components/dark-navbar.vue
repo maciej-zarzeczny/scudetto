@@ -104,6 +104,10 @@
 @import "~@/_bulma-variables.scss";
 @import "~@/_variables.scss";
 
+.navbar-logo > img {
+  min-height: 75px;
+  margin-left: 50px;
+}
 .dark-navbar {
   background-color: $dark-navbar-background-color !important;
 }
@@ -138,20 +142,20 @@ export default {
   props: {
     isloggedin: Boolean,
     isloginpage: Boolean,
-    isadmin: Boolean
+    isadmin: Boolean,
   },
   data() {
     return {
       showMobileMenu: false,
       loggedIn: this.isloggedin,
       loginPage: this.isloginpage,
-      admin: this.isadmin
+      admin: this.isadmin,
     };
   },
   computed: {
     emptyCart() {
       return !cart.emptyCart;
-    }
+    },
   },
   methods: {
     showMenu() {
@@ -160,10 +164,10 @@ export default {
     Logout() {
       axios
         .post("/logout")
-        .then(response => {
+        .then((response) => {
           window.location.href = "/products";
         })
-        .catch(error => {
+        .catch((error) => {
           alert("Wystąpił błąd: " + error);
         });
     },
@@ -172,7 +176,7 @@ export default {
         return true;
       }
       return false;
-    }
-  }
+    },
+  },
 };
 </script>

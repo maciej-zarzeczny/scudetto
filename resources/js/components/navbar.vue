@@ -167,20 +167,20 @@
 export default {
   props: {
     isloggedin: Boolean,
-    isadmin: Boolean
+    isadmin: Boolean,
   },
   data() {
     return {
       showMobileMenu: false,
       menuMinimized: false,
       loggedIn: this.isloggedin,
-      admin: this.isadmin
+      admin: this.isadmin,
     };
   },
   computed: {
     emptyCart() {
       return !cart.emptyCart;
-    }
+    },
   },
   methods: {
     showMenu() {
@@ -196,10 +196,10 @@ export default {
     Logout() {
       axios
         .post("/logout")
-        .then(response => {
+        .then((response) => {
           window.location.href = "/";
         })
-        .catch(error => {
+        .catch((error) => {
           alert("Wystąpił błąd: " + error);
         });
     },
@@ -209,10 +209,10 @@ export default {
       } else {
         return "dropdown";
       }
-    }
+    },
   },
   mounted() {
-    Event.$on("visibilityChanged", visible => {
+    Event.$on("visibilityChanged", (visible) => {
       if (visible) {
         this.menuMinimized = false;
       } else {
@@ -222,9 +222,9 @@ export default {
   },
 
   created() {
-    const sleep = milliseconds => {
-      return new Promise(resolve => setTimeout(resolve, milliseconds));
+    const sleep = (milliseconds) => {
+      return new Promise((resolve) => setTimeout(resolve, milliseconds));
     };
-  }
+  },
 };
 </script>
