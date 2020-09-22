@@ -34,9 +34,7 @@ class GalleryImageController extends Controller
      */
     public function store(Request $request)
     {
-        $imagesUrls = json_decode($request->imagesNames);     
-        
-        dd($request);
+        $imagesUrls = json_decode($request->imagesNames);             
 
         for ($i=0; $i<count($imagesUrls); $i++)
         {
@@ -46,6 +44,9 @@ class GalleryImageController extends Controller
             $galleryImage->save();
             
             $image = $request->file('images')[$i];
+
+            dd($image);
+
             $resizedImage = Image::make($image->path());
 
             $resizedImage->resize(300, null, function ($constraint) {
