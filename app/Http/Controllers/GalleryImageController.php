@@ -34,7 +34,9 @@ class GalleryImageController extends Controller
      */
     public function store(Request $request)
     {
-        $imagesUrls = json_decode($request->imagesNames);                
+        $imagesUrls = json_decode($request->imagesNames);     
+        
+        dd($request);
 
         for ($i=0; $i<count($imagesUrls); $i++)
         {
