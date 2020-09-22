@@ -234,7 +234,7 @@ export default {
       selected: "",
       showModal: false,
       windowWidth: null,
-      xLargeScreen: false
+      xLargeScreen: false,
     };
   },
   methods: {
@@ -298,12 +298,12 @@ export default {
         }
 
         axios.put("/tkanina/" + String(this.tkaniny[this.tkaninyNumber].id), {
-          quantity: this.tkaniny[this.tkaninyNumber].quantity - 1
+          quantity: this.tkaniny[this.tkaninyNumber].quantity - 1,
         });
         axios.put(
           "/podszewka/" + String(this.podszewki[this.podszewkiNumber].id),
           {
-            quantity: this.podszewki[this.podszewkiNumber].quantity - 1
+            quantity: this.podszewki[this.podszewkiNumber].quantity - 1,
           }
         );
 
@@ -351,42 +351,42 @@ export default {
       } else {
         this.xLargeScreen = false;
       }
-    }
+    },
   },
   computed: {
-    columnSize: function() {
+    columnSize: function () {
       if (this.xLargeScreen) {
         return "is-3";
       } else {
         return "is-2";
       }
     },
-    mainColumnSize: function() {
+    mainColumnSize: function () {
       if (this.xLargeScreen) {
         return "is-6";
       } else {
         return "is-8";
       }
-    }
+    },
   },
   created() {
-    axios.get("kroj/female").then(response => {
+    axios.get("kroj/female").then((response) => {
       this.kroje = response.data;
       this.kroj = this.kroje[0];
       this.krojeReady = true;
     });
-    axios.get("sizes/female").then(response => {
+    axios.get("sizes/female").then((response) => {
       this.sizes = response.data;
     });
-    axios.get("tkanina/female").then(response => {
+    axios.get("tkanina/female").then((response) => {
       this.tkaniny = response.data;
       this.tkaninyReady = true;
     });
-    axios.get("podszewka/get").then(response => {
+    axios.get("podszewka/get").then((response) => {
       this.podszewki = response.data;
       this.podszewkiReady = true;
     });
-    axios.get("button/female").then(response => {
+    axios.get("button/female").then((response) => {
       this.guziki = response.data;
       this.guzik = this.guziki[0];
       this.guzikiReady = true;
@@ -394,7 +394,7 @@ export default {
 
     window.addEventListener("resize", this.resizeHandler);
     this.resizeHandler();
-  }
+  },
 };
 </script>
 

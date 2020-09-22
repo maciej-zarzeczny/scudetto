@@ -10,42 +10,59 @@ const i18n = new VueInternationalization({
     messages: Locale
 });
 
-Vue.component("navbar", () => import("./components/navbar.vue"));
-Vue.component("dark-navbar", () => import("./components/dark-navbar.vue"));
-Vue.component("video-header", () => import("./components/video-header.vue"));
-Vue.component("product-item", () => import("./components/product-item.vue"));
-Vue.component("product-overview", () =>
-    import("./components/product-overview.vue")
+Vue.component("navbar", require("./components/navbar.vue").default);
+Vue.component("dark-navbar", require("./components/dark-navbar.vue").default);
+Vue.component("video-header", require("./components/video-header.vue").default);
+Vue.component("product-item", require("./components/product-item.vue").default);
+Vue.component(
+    "product-overview",
+    require("./components/product-overview.vue").default
 );
-Vue.component("admin-menu", () => import("./components/admin/admin-menu.vue"));
-Vue.component("login-form", () => import("./components/login-form.vue"));
-Vue.component("register-form", () => import("./components/register-form.vue"));
-Vue.component("cart-view", () => import("./components/cart-view.vue"));
-Vue.component("cart-item", () => import("./components/cart-item.vue"));
-Vue.component("orders-view", () => import("./components/orders-view.vue"));
-Vue.component("order-details", () =>
-    import("./components/admin/order-details.vue")
+Vue.component(
+    "admin-menu",
+    require("./components/admin/admin-menu.vue").default
 );
-Vue.component("gallery-edit", () => import("./components/admin/gallery.vue"));
-Vue.component("creator", () => import("./components/admin/creator.vue"));
-Vue.component("coupons", () => import("./components/admin/coupons.vue"));
-Vue.component("checkout-view", () => import("./components/checkout-view.vue"));
-Vue.component("about-us", () => import("./components/about-us.vue"));
-Vue.component("guide", () => import("./components/guide.vue"));
-Vue.component("gallery", () => import("./components/gallery.vue"));
-Vue.component("payment", () => import("./components/payment.vue"));
-Vue.component("confirmation", () => import("./components/confirmation.vue"));
-Vue.component("payment-status", () =>
-    import("./components/payment-status.vue")
+Vue.component("login-form", require("./components/login-form.vue").default);
+Vue.component(
+    "register-form",
+    require("./components/register-form.vue").default
 );
-Vue.component("choose-configurator", () =>
-    import("./components/choose-configurator.vue")
+Vue.component("cart-view", require("./components/cart-view.vue").default);
+Vue.component("cart-item", require("./components/cart-item.vue").default);
+Vue.component("orders-view", require("./components/orders-view.vue").default);
+Vue.component(
+    "order-details",
+    require("./components/admin/order-details.vue").default
 );
-Vue.component("configurator", () => import("./components/configurator.vue"));
-Vue.component("w-configurator", () =>
-    import("./components/w-configurator.vue")
+Vue.component(
+    "gallery-edit",
+    require("./components/admin/gallery.vue").default
 );
-Vue.component("site-footer", () => import("./components/site-footer.vue"));
+Vue.component("creator", require("./components/admin/creator.vue").default);
+Vue.component("coupons", require("./components/admin/coupons.vue").default);
+Vue.component(
+    "checkout-view",
+    require("./components/checkout-view.vue").default
+);
+Vue.component("about-us", require("./components/about-us.vue").default);
+Vue.component("guide", require("./components/guide.vue").default);
+Vue.component("gallery", require("./components/gallery.vue").default);
+Vue.component("payment", require("./components/payment.vue").default);
+Vue.component("confirmation", require("./components/confirmation.vue").default);
+Vue.component(
+    "payment-status",
+    require("./components/payment-status.vue").default
+);
+Vue.component(
+    "choose-configurator",
+    require("./components/choose-configurator.vue").default
+);
+Vue.component("configurator", require("./components/configurator.vue").default);
+Vue.component(
+    "w-configurator",
+    require("./components/w-configurator.vue").default
+);
+Vue.component("site-footer", require("./components/site-footer.vue").default);
 
 var Cart = Vue.extend({
     data() {
