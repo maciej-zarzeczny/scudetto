@@ -460,6 +460,8 @@ export default {
       this.tkaniny = response.data;
       this.tkaninyReady = true;
 
+      console.log(this.tkaniny[1].quantity);
+
       for (let i = 0; i < this.tkaniny.length; i++) {
         if (this.tkaniny[i].quantity != 0) {
           this.tkaninyNumber = i;
