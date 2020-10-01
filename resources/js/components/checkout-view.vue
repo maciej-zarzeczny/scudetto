@@ -295,8 +295,8 @@ export default {
                             });
                     }
                     window.location.href =
-                        // "https://scudetto.store/payment/" + response.data;
-                        window.location.href = "/payment/" + response.data;
+                        "https://scudetto.store/payment/" + response.data;
+                        // window.location.href = "/payment/" + response.data;
                 })
                 .catch(error => {
                     console.log(error);

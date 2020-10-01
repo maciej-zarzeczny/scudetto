@@ -1,43 +1,53 @@
 <template>
   <div class="configurator-container container is-fluid" id="configurator-page">
     <section class="configurator has-text-centered">
-      <span class="txt">{{ $t('messages.kroj') }}</span>
+      <span class="txt">{{ $t("messages.kroj") }}</span>
       <div class="choice-container-parent">
         <p class="buttons choice-container" v-if="krojeReady">
-          <a class="button" v-for="(kroj, index) in kroje" :key="index" @click="changeKroj(kroj)">
+          <a
+            class="button"
+            v-for="(kroj, index) in kroje"
+            :key="index"
+            @click="changeKroj(kroj)"
+          >
             <figure class="image is-64x64 style-button">
-              <img :src="'/images/creator/female/' + kroj.name + '.png'" alt="Cut image" />
+              <img
+                :src="'/images/creator/female/' + kroj.name + '.png'"
+                alt="Cut image"
+              />
             </figure>
           </a>
         </p>
       </div>
 
       <div class="sizes-parent">
-        <span class="txt">{{ $t('messages.size') }}</span>
+        <span class="txt">{{ $t("messages.size") }}</span>
         <div class="buttons are-small size-buttons sizes-container">
           <a
             class="button"
             v-for="size in sizes"
             :key="size.id"
-            :class="{ 'active-size':size.id == selected }"
+            :class="{ 'active-size': size.id == selected }"
             @click="selected = size.id"
-          >{{ size.sizeName }}</a>
+            >{{ size.sizeName }}</a
+          >
         </div>
-        <button class="button sizes-button is-outlined" @click="showModal = true">
-          <span>{{ $t('messages.sizes-table') }}</span>
+        <button
+          class="button sizes-button is-outlined"
+          @click="showModal = true"
+        >
+          <span>{{ $t("messages.sizes-table") }}</span>
         </button>
         <p class="price-text" v-if="krojeReady">
-          {{ $t('messages.configurator-price') }}
-          <span
-            class="price-text-green"
-          >{{ calculatePrice() }} zł</span>
+          {{ $t("messages.configurator-price") }}
+          <span class="price-text-green">{{ calculatePrice() }} zł</span>
         </p>
       </div>
 
       <div class="columns">
         <!-- TKANINY -->
         <div class="column" :class="columnSize">
-          <span class="txt">{{ $t('messages.tkanina') }}</span>
+          <span class="txt">{{ $t("messages.tkanina") }}</span>
           <div class="choice-container-parent">
             <div v-if="tkaninyReady">
               <p
@@ -45,8 +55,17 @@
                 v-for="index in Math.ceil(tkaniny.length / 3)"
                 :key="index"
               >
-                <a class="button" v-for="columnIndex in 3" :key="columnIndex">
-                  <figure class="image is-32x32" @click="tkaninaChange(index, columnIndex)">
+                <a
+                  class="button"
+                  v-once
+                  v-for="columnIndex in 3"
+                  :key="columnIndex"
+                  :disabled="tkaniny[tkaninyIndex].quantity == 0"
+                >
+                  <figure
+                    class="image is-32x32"
+                    @click="tkaninaChange(index, columnIndex)"
+                  >
                     <img
                       v-once
                       :src="tkaniny[tkaninyIndex].icon_url"
@@ -66,36 +85,61 @@
             <div class="column">
               <figure class="image config-img-parent">
                 <img
-                  :src="'/images/creator/' + podszewki[podszewkiNumber].name + '.png'"
+                  :src="
+                    '/images/creator/' +
+                    podszewki[podszewkiNumber].name +
+                    '.png'
+                  "
                   v-if="podszewkiReady"
                 />
                 <img
-                  :src="'/images/creator/female/' + kroj.name + '/' + tkaniny[tkaninyNumber].name + '.png'"
+                  :src="
+                    '/images/creator/female/' +
+                    kroj.name +
+                    '/' +
+                    tkaniny[tkaninyNumber].name +
+                    '.png'
+                  "
                   v-if="tkaninyReady && krojeReady"
                 />
                 <img
-                  :src="'/images/creator/female/' + kroj.name + '/' + guzik.name + '.png'"
+                  :src="
+                    '/images/creator/female/' +
+                    kroj.name +
+                    '/' +
+                    guzik.name +
+                    '.png'
+                  "
                   v-if="guzikiReady && krojeReady"
                 />
               </figure>
             </div>
             <div class="column">
               <figure class="image config-img-parent" v-if="tkaninyReady">
-                <img :src="tkaniny[tkaninyNumber].back_image_url" v-show="!tylPodszewka" />
+                <img
+                  :src="tkaniny[tkaninyNumber].back_image_url"
+                  v-show="!tylPodszewka"
+                />
                 <img
                   :src="podszewki[podszewkiNumber].back_female_image_url"
                   v-show="tylPodszewka"
                   v-if="podszewkiReady"
                 />
-                <img :src="tkaniny[tkaninyNumber].single_addon_url" v-show="!showKolnierz" />
-                <img :src="tkaniny[tkaninyNumber].addon_with_collar_url" v-show="showKolnierz" />
+                <img
+                  :src="tkaniny[tkaninyNumber].single_addon_url"
+                  v-show="!showKolnierz"
+                />
+                <img
+                  :src="tkaniny[tkaninyNumber].addon_with_collar_url"
+                  v-show="showKolnierz"
+                />
               </figure>
             </div>
           </div>
         </div>
         <!-- PODSZEWKI -->
         <div class="column" :class="columnSize">
-          <span class="txt">{{ $t('messages.podszewka') }}</span>
+          <span class="txt">{{ $t("messages.podszewka") }}</span>
           <div class="choice-container-parent">
             <div v-if="podszewkiReady">
               <p
@@ -103,8 +147,17 @@
                 v-for="index in Math.ceil(podszewki.length / 3)"
                 :key="index"
               >
-                <a class="button" v-for="columnIndex in 3" :key="columnIndex">
-                  <figure class="image is-32x32" @click="podszewkaChange(index, columnIndex)">
+                <a
+                  class="button"
+                  v-once
+                  v-for="columnIndex in 3"
+                  :key="columnIndex"
+                  :disabled="podszewki[podszewkiIndex].quantity == 0"
+                >
+                  <figure
+                    class="image is-32x32"
+                    @click="podszewkaChange(index, columnIndex)"
+                  >
                     <img
                       v-once
                       :src="podszewki[podszewkiIndex].icon_url"
@@ -120,22 +173,30 @@
         </div>
       </div>
 
-      <span class="txt">{{ $t('messages.tyl') }}</span>
+      <span class="txt">{{ $t("messages.tyl") }}</span>
       <div class="choice-container-parent">
         <div class="control">
           <label class="radio">
-            <input type="radio" :checked="!tylPodszewka" @click="changeBack(1)" />
-            {{ $t('messages.tkanina') }}
+            <input
+              type="radio"
+              :checked="!tylPodszewka"
+              @click="changeBack(1)"
+            />
+            {{ $t("messages.tkanina") }}
           </label>
           <label class="radio">
-            <input type="radio" :checked="tylPodszewka" @click="changeBack(2)" />
-            {{ $t('messages.podszewka') }}
+            <input
+              type="radio"
+              :checked="tylPodszewka"
+              @click="changeBack(2)"
+            />
+            {{ $t("messages.podszewka") }}
           </label>
         </div>
       </div>
 
       <!-- GUZIKI -->
-      <span class="txt">{{ $t('messages.buttons') }}</span>
+      <span class="txt">{{ $t("messages.buttons") }}</span>
       <p class="buttons choice-container2" v-if="guzikiReady">
         <a class="button" v-for="(guzik, index) in guziki" :key="index">
           <figure class="image is-32x32" @click="changeGuziki(guzik)">
@@ -145,10 +206,10 @@
       </p>
 
       <button class="button ready-button is-outlined" @click="makeOrder()">
-        <span>{{ $t('messages.add_to_cart') }}</span>
+        <span>{{ $t("messages.add_to_cart") }}</span>
       </button>
-      <p class="small-txt">{{ $t('messages.vest-color') }}</p>
-      <div class="modal" :class="{ 'is-active' : showModal }">
+      <p class="small-txt">{{ $t("messages.vest-color") }}</p>
+      <div class="modal" :class="{ 'is-active': showModal }">
         <div class="modal-background" @click="showModal = false"></div>
         <div class="modal-content">
           <table class="table sizes-modal is-fullwidth">
@@ -194,7 +255,11 @@
             </tbody>
           </table>
         </div>
-        <button class="modal-close is-large" aria-label="close" @click="showModal = false"></button>
+        <button
+          class="modal-close is-large"
+          aria-label="close"
+          @click="showModal = false"
+        ></button>
       </div>
     </section>
   </div>
@@ -239,10 +304,16 @@ export default {
   },
   methods: {
     tkaninaChange(index, columnIndex) {
-      this.tkaninyNumber = (index - 1) * 3 + columnIndex - 1;
+      let idx = (index - 1) * 3 + columnIndex - 1;
+      if (this.tkaniny[idx].quantity == 0) return;
+
+      this.tkaninyNumber = idx;
     },
     podszewkaChange(index, columnIndex) {
-      this.podszewkiNumber = (index - 1) * 3 + columnIndex - 1;
+      let idx = (index - 1) * 3 + columnIndex - 1;
+      if (this.podszewki[idx].quantity == 0) return;
+
+      this.podszewkiNumber = idx;
     },
     changeKroj(kroj) {
       this.kroj = kroj;
@@ -381,10 +452,24 @@ export default {
     axios.get("tkanina/female").then((response) => {
       this.tkaniny = response.data;
       this.tkaninyReady = true;
+
+      for (let i = 0; i < this.tkaniny.length; i++) {
+        if (this.tkaniny[i].quantity != 0) {
+          this.tkaninyNumber = i;
+          break;
+        }
+      }
     });
     axios.get("podszewka/get").then((response) => {
       this.podszewki = response.data;
       this.podszewkiReady = true;
+
+      for (let i = 0; i < this.podszewki.length; i++) {
+        if (this.podszewki[i].quantity != 0) {
+          this.podszewkiNumber = i;
+          break;
+        }
+      }
     });
     axios.get("button/female").then((response) => {
       this.guziki = response.data;
