@@ -97,12 +97,14 @@ class ProductController extends Controller
         $product->save();        
 
         $product->sizes()->detach();
+        $sizes = json_decode($request->sizes);
+        $quantities = json_decode($request->quantities);
 
-        for ($i=0; $i<count($request->sizes); $i++) {            
-            if ($request->sizes[$i] == true) {                                
-                $product->sizes()->attach(Size::find($i+1), ['quantity' => $request->quantities[$i]]);
-            }
-        }
+        for ($i=0; $i<count($sizes); $i++) {
+            if ($sizes[$i] != null && is_numeric($quantities[$i])) {
+                $product->sizes()->attach(Size::get()->where('sizeName', '==', $sizes[$i])->first(), ['quantity' => $quantities[$i]]);
+            }                    
+        }        
         return response()->json('Product updated');
     }
 
