@@ -5038,14 +5038,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     userobject: String
@@ -5144,7 +5136,8 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
 
-        window.location.href = "https://scudetto.store/payment/" + response.data; // window.location.href = "/payment/" + response.data;
+        window.location.href = // "https://scudetto.store/payment/" + response.data;
+        window.location.href = "/payment/" + response.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -18398,9 +18391,9 @@ var render = function() {
           _c("div", { staticClass: "steps-content" }, [
             _c("p", { staticClass: "heading" }, [
               _vm._v(
-                "\n                        " +
+                "\n            " +
                   _vm._s(_vm.$t("messages.confirmation_step")) +
-                  "\n                    "
+                  "\n          "
               )
             ])
           ])
@@ -18423,9 +18416,9 @@ var render = function() {
           _c("div", { staticClass: "field" }, [
             _c("label", { staticClass: "label" }, [
               _vm._v(
-                "\n                    " +
+                "\n          " +
                   _vm._s(_vm.$t("messages.checkout_name")) +
-                  "\n                    "
+                  "\n          "
               ),
               _c("span", { staticClass: "star" }, [_vm._v("*")])
             ]),
@@ -18462,9 +18455,9 @@ var render = function() {
           _c("div", { staticClass: "field" }, [
             _c("label", { staticClass: "label" }, [
               _vm._v(
-                "\n                    " +
+                "\n          " +
                   _vm._s(_vm.$t("messages.checkout_email")) +
-                  "\n                    "
+                  "\n          "
               ),
               _c("span", { staticClass: "star" }, [_vm._v("*")])
             ]),
@@ -18533,9 +18526,9 @@ var render = function() {
           _c("div", { staticClass: "field" }, [
             _c("label", { staticClass: "label" }, [
               _vm._v(
-                "\n                    " +
+                "\n          " +
                   _vm._s(_vm.$t("messages.checkout_address")) +
-                  "\n                    "
+                  "\n          "
               ),
               _c("span", { staticClass: "star" }, [_vm._v("*")])
             ]),
@@ -18572,9 +18565,9 @@ var render = function() {
           _c("div", { staticClass: "field" }, [
             _c("label", { staticClass: "label" }, [
               _vm._v(
-                "\n                    " +
+                "\n          " +
                   _vm._s(_vm.$t("messages.checkout_post_code")) +
-                  "\n                    "
+                  "\n          "
               ),
               _c("span", { staticClass: "star" }, [_vm._v("*")])
             ]),
@@ -18646,15 +18639,27 @@ var render = function() {
                   },
                   [
                     _c("option", { attrs: { value: "1" } }, [
-                      _vm._v(_vm._s(_vm.$t("messages.shipping-method-1")))
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm.$t("messages.shipping-method-1")) +
+                          "\n              "
+                      )
                     ]),
                     _vm._v(" "),
                     _c("option", { attrs: { value: "2" } }, [
-                      _vm._v(_vm._s(_vm.$t("messages.shipping-method-2")))
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm.$t("messages.shipping-method-2")) +
+                          "\n              "
+                      )
                     ]),
                     _vm._v(" "),
                     _c("option", { attrs: { value: "3" } }, [
-                      _vm._v(_vm._s(_vm.$t("messages.shipping-method-3")))
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm.$t("messages.shipping-method-3")) +
+                          "\n              "
+                      )
                     ])
                   ]
                 )
@@ -18740,15 +18745,15 @@ var render = function() {
                   _vm._v(" "),
                   _c("span", [
                     _vm._v(
-                      "\n                            " +
+                      "\n              " +
                         _vm._s(_vm.$t("messages.checkout_accept")) +
-                        "\n                            "
+                        "\n              "
                     ),
                     _c("a", { attrs: { href: "/terms" } }, [
                       _vm._v(
-                        "\n                                " +
+                        "\n                " +
                           _vm._s(_vm.$t("messages.checkout_terms")) +
-                          "\n                                "
+                          "\n                "
                       ),
                       _c("span", { staticClass: "star" }, [_vm._v("*")])
                     ])
