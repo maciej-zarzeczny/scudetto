@@ -130,8 +130,13 @@ class OrderController extends Controller
             $amount += 50;
         }
 
-        Mail::to($order->email)->send(new OrderSubmitted($order, $amount));
-        return $order->id;
+        try {
+            Mail::to($order->email)->send(new OrderSubmitted($order, $amount));
+            return $order->id;
+        } 
+        catch(\Exception $e) {
+            return $order->id;
+        }        
     }
 
     /**
