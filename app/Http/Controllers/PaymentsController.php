@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class PaymentsController extends Controller
 {
     public function registerTransaction(Request $request) {        
-        $p24_secret = env('PRZELEWY24_SECRET', 'asdad');        
+        $p24_secret = env('PRZELEWY24_SECRET', '');        
         $p24_merchant_id = intval(env('PRZELEWY24_MERCHANT_ID', 11111));
         $p24_pos_id = intval(env('PRZELEWY24_POS_ID', 11111));
         $p24_crc = env('PRZELEWY24_CRC', '');                
