@@ -14,6 +14,8 @@ class PaymentsController extends Controller
         $p24_sandbox = env('PRZELEWY24_TEST_SERVER', true);
         $p24_url_return = env('PRZELEWY24_URL_RETURN', '');
         $p24_url_status = env('PRZELEWY24_URL_STATUS', '');
+
+        dd($p24_secret);
         
         $check_sum = json_encode(array(
             "sessionId" => strval($request->sessionId),

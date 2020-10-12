@@ -80,8 +80,8 @@ export default {
   },
   methods: {
     backClicked() {
-      window.location.href = "https://scudetto.store/products";
-      // window.location.href = "/products";
+      // window.location.href = "https://scudetto.store/products";
+      window.location.href = "/products";
     },
   },
 
