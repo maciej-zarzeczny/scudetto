@@ -134,7 +134,7 @@ class OrderController extends Controller
             Mail::to($order->email)->send(new OrderSubmitted($order, $amount));
             return $order->id;
         } 
-        catch(\Exception $e) {
+        catch(\Exception $e) {            
             return $order->id;
         }        
     }

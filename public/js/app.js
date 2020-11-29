@@ -5797,7 +5797,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     backClicked: function backClicked() {
-      window.location.href = "https://scudetto.store/products"; // window.location.href = "/products";
+      // window.location.href = "https://scudetto.store/products";
+      window.location.href = "/products";
     }
   },
   mounted: function mounted() {
