@@ -63,6 +63,7 @@ Vue.component(
     require("./components/w-configurator.vue").default
 );
 Vue.component("site-footer", require("./components/site-footer.vue").default);
+Vue.component("pulse-loader", require("vue-spinner/src/PulseLoader.vue").default);
 
 var Cart = Vue.extend({
     data() {

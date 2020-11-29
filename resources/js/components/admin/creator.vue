@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div>    
     <!-- KROJE -->
     <section class="hero is-info welcome is-small">
       <div class="hero-body">
@@ -143,6 +143,9 @@
                 ADD TKANINA MODAL
       ----------------------------------->
       <div class="modal" :class="{ 'is-active' : showAddTkaninaModal }">
+        <div class="loader-wrapper" v-if="isLoading">
+          <pulse-loader :loading="true" :color="'#219CEE'" :size="'32px'"></pulse-loader>
+        </div>
         <div class="modal-background" @click="showAddTkaninaModal = false"></div>
         <div class="modal-content">
           <table class="table is-fullwidth">
@@ -287,6 +290,9 @@
         :class="{ 'is-active' : showTkaninaModal }"
         v-if="tkaninyReady && tkaniny.length > 0"
       >
+      <div class="loader-wrapper" v-if="isLoading">
+          <pulse-loader :loading="true" :color="'#219CEE'" :size="'32px'"></pulse-loader>
+        </div>
         <div class="modal-background" @click="showTkaninaModal = false"></div>
         <div class="modal-content">
           <table class="table is-fullwidth">
@@ -524,6 +530,9 @@
                 ADD PODSZEWKA MODAL
       ----------------------------------->
       <div class="modal" :class="{ 'is-active' : showAddPodszewkaModal }">
+        <div class="loader-wrapper" v-if="isLoading">
+          <pulse-loader :loading="true" :color="'#219CEE'" :size="'32px'"></pulse-loader>
+        </div>
         <div class="modal-background" @click="showAddPodszewkaModal = false"></div>
         <div class="modal-content">
           <table class="table is-fullwidth">
@@ -639,6 +648,9 @@
         :class="{ 'is-active' : showPodszewkaModal }"
         v-if="podszewkiReady && podszewki.length > 0"
       >
+      <div class="loader-wrapper" v-if="isLoading">
+          <pulse-loader :loading="true" :color="'#219CEE'" :size="'32px'"></pulse-loader>
+        </div>
         <div class="modal-background" @click="showPodszewkaModal = false"></div>
         <div class="modal-content">
           <table class="table is-fullwidth">
@@ -831,6 +843,9 @@
                 ADD GUZIKI MODAL
       ----------------------------------->
       <div class="modal" :class="{ 'is-active' : showAddGuzikiModal }">
+        <div class="loader-wrapper" v-if="isLoading">
+          <pulse-loader :loading="true" :color="'#219CEE'" :size="'32px'"></pulse-loader>
+        </div>
         <div class="modal-background" @click="showAddGuzikiModal = false"></div>
         <div class="modal-content">
           <table class="table is-fullwidth">
@@ -907,6 +922,9 @@
         :class="{ 'is-active' : showGuzikiModal }"
         v-if="guzikiReady && guziki.length > 0"
       >
+      <div class="loader-wrapper" v-if="isLoading">
+          <pulse-loader :loading="true" :color="'#219CEE'" :size="'32px'"></pulse-loader>
+        </div>
         <div class="modal-background" @click="showGuzikiModal = false"></div>
         <div class="modal-content">
           <table class="table is-fullwidth">
@@ -996,6 +1014,7 @@
 export default {
   data() {
     return {
+      isLoading: false,
       kroje: [],
       krojeReady: false,
       krojImage: null,
@@ -1088,18 +1107,20 @@ export default {
       formData.append("name", tkaninaName);
       formData.append("image", this.choosedTkaninaImage[0]);
       formData.append("female", female);
+      this.isLoading = true;
       axios
         .post("tkanina/image/" + this.whichTkanina, formData, config)
         .then(response => {
           if (response.data == "success") {
             axios.get("tkanina").then(response => {
               this.tkaniny = response.data;
-              this.tkaninyReady = true;
+              this.tkaninyReady = true;              
             });
-            alert("Dodano zdjęcie");
+            this.isLoading = false;                
           }
         })
         .catch(error => {
+          this.isLoading = false;
           alert("Wystąpił błąd: " + error);
         });
     },
@@ -1176,14 +1197,16 @@ export default {
       let formData = new FormData();
       formData.append("name", podszewkaName);
       formData.append("image", this.choosedPodszewkaImage[0]);
+      this.isLoading = true;
       axios
         .post("podszewka/image/" + this.whichPodszewka, formData, config)
         .then(response => {
           if (response.data == "success") {
-            alert("Dodano zdjęcie");
+            this.isLoading = false;            
           }
         })
         .catch(error => {
+          this.isLoading = false;
           alert("Wystąpił błąd: " + error);
         });
     },
@@ -1258,6 +1281,7 @@ export default {
       formData.append("name", guzikiName);
       formData.append("image", this.choosedGuzikiImage[0]);
       formData.append("female", female);
+      this.isLoading = true;
       axios
         .post("button/image/" + this.whichGuziki, formData, config)
         .then(response => {
@@ -1266,7 +1290,7 @@ export default {
               this.guziki = response.data;
               this.guzikiReady = true;
             });
-            alert("Dodano zdjęcie");
+            this.isLoading = false;
           }
         })
         .catch(error => {
@@ -1428,5 +1452,17 @@ export default {
 
 .guziki-section {
   margin-top: 30px;
+}
+.loader-wrapper {
+  position: absolute;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
