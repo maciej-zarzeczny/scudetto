@@ -201,7 +201,7 @@ export default {
       }
       if (this.discountPrice == "") {
         alert("Nalezy podac cenę promocyjną (0 w przypadku braku promocji)");
-      } else {
+      } else {        
         this.isLoading = true;
         const config = {
           headers: { "content-type": "multipart/form-data" },

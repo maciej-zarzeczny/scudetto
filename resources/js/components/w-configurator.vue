@@ -333,14 +333,17 @@ export default {
         this.tylPodszewka = true;
       }
     },
-    calculatePrice() {
-      var basicPrice = 340;
-      var calculatedPrice = basicPrice;
-      if (this.kroj.has_collar == "true") {
-        calculatedPrice += 20;
-      }
-      if (this.tylPodszewka == false) {
-        calculatedPrice += 30;
+    calculatePrice() {      
+      let calculatedPrice;      
+
+      if (this.kroj.has_collar == "false" && this.tylPodszewka) {
+        calculatedPrice = 270;
+      } else if (this.kroj.has_collar == "false" && !this.tylPodszewka) {
+        calculatedPrice = 280;
+      } else if (this.kroj.has_collar == "true" && this.tylPodszewka) {
+        calculatedPrice = 280;
+      } else if (this.kroj.has_collar == "true" && !this.tylPodszewka) {
+        calculatedPrice = 290;
       }
 
       return calculatedPrice;
