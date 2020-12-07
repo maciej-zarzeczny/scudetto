@@ -17,7 +17,8 @@ class Product extends Model
         'price',
         'discountPrice',        
         'choosedSize',
-        'choosedAmount'
+        'choosedAmount',
+        'type'
     ];
 
     protected $hidden = [        

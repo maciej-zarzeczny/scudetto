@@ -39,8 +39,8 @@ class ProductController extends Controller
             'shortEnglishDescription' => 'required',
             'longEnglishDescription' => 'required',
             'englishMaterials' => 'required',
-            'price' => 'required'            
-        ]);
+            'price' => 'required',                  
+        ]);        
 
         $product = Product::create([
             'name' => $request->name,
@@ -51,19 +51,25 @@ class ProductController extends Controller
             'longEnglishDescription' => $request->longEnglishDescription,
             'englishMaterials' => $request->englishMaterials,
             'price' => $request->price,
-            'discountPrice' => $request->discountPrice,                                    
+            'discountPrice' => $request->discountPrice,
+            'type' => $request->type,
         ]);
         $product->save();
 
-        $sizes = json_decode($request->sizes);
-        $quantities = json_decode($request->quantities);
-        $imagesNames = json_decode($request->imagesNames);
+        // Handle sizes if product is not a voucher
+        if ($product->type != 'voucher') {
+            $sizes = json_decode($request->sizes);
+            $quantities = json_decode($request->quantities);
 
-        for ($i=0; $i<count($sizes); $i++) {
+            for ($i=0; $i<count($sizes); $i++) {
             if ($sizes[$i] != null && is_numeric($quantities[$i])) {
                 $product->sizes()->attach(Size::get()->where('sizeName', '==', $sizes[$i])->first(), ['quantity' => $quantities[$i]]);
             }                    
         }        
+        }        
+
+        // Handle images
+        $imagesNames = json_decode($request->imagesNames);        
 
         for ($i=0; $i<count($imagesNames); $i++) {                      
             $image = Image::create([

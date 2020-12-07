@@ -2,6 +2,31 @@
   <div>
     <section class="add-product">
       <form @submit.prevent="addNewProduct()">
+         <section class="hero is-info welcome is-small">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">Rodzaj produktu</h1>
+            </div>
+          </div>
+        </section>
+        <div class="control type-select">
+          <label class="radio">
+            <input type="radio" name="male" :checked="type == 'male'" @click="onTypeChanged('male')">
+            Kamizelka męska
+          </label>
+          <label class="radio">
+            <input type="radio" name="female" :checked="type == 'female'" @click="onTypeChanged('female')">
+            Kamizelka damska
+          </label>
+          <label class="radio">
+            <input type="radio" name="kid" :checked="type == 'kid'" @click="onTypeChanged('kid')">
+            Kamizelka dziecięca
+          </label>
+          <label class="radio">
+            <input type="radio" name="voucher" :checked="type == 'voucher'" @click="onTypeChanged('voucher')">
+            Voucher
+          </label>
+        </div>
         <section class="hero is-info welcome is-small">
           <div class="hero-body">
             <div class="container">
@@ -109,26 +134,43 @@
           </div>
         </section>
 
-        <div class="field" v-for="(size, index) in sizes" :key="index">
-          <div class="control">
-            <label class="checkbox">
+        <div v-if="!isVoucher">
+          <div class="field" v-for="(size, index) in displayedSizes" :key="index">
+            <div class="control">
+              <label class="checkbox">
+                <input
+                  type="checkbox"
+                  @click="onSizeChanged(size.sizeName, index)"
+                  v-model="sizesChecked[index]"
+                />
+                {{ size.sizeName }}
+              </label>
+            </div>
+            <div class="control">
               <input
-                type="checkbox"
-                @click="onSizeChanged(size.sizeName, index)"
-                v-model="sizesChecked[index]"
+                class="input"
+                type="text"
+                placeholder="Stan magazynowy"
+                v-model="quantities[index]"
               />
-              {{ size.sizeName }}
-            </label>
-          </div>
-          <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Stan magazynowy"
-              v-model="quantities[index]"
-            />
+            </div>
           </div>
         </div>
+
+        <div v-if="isVoucher">
+          <div class="field" v-for="(voucherType, index) in voucherTypes" :key="index">
+            <div class="control">
+              <label class="checkbox">
+                <input
+                  type="checkbox"                  
+                  v-model="voucherTypesChecked[index]"
+                />
+                {{ getVoucherTypeName(voucherType) }}
+              </label>
+            </div>            
+          </div>
+        </div>
+        
 
         <section class="hero is-info welcome is-small">
           <div class="hero-body">
@@ -182,21 +224,26 @@ export default {
       englishMaterials: "",
       maxChars: 255,
       sizes: [],
+      displayedSizes: [],
       images: [],
       imagesNames: [],
       sizesChecked: [],
       sizesNames: [],
       quantities: [],
       isLoading: false,
+
+      type: "male",
+      isVoucher: false,
+      voucherTypes: [0, 1, 2],      
+      voucherTypesChecked: []
     };
   },
   methods: {
     onImageChange(e) {
       this.images = e.target.files;
     },
-    addNewProduct() {
-      var i = 0;
-      for (i = 0; i < this.images.length; i++) {
+    addNewProduct() {      
+      for (let i = 0; i < this.images.length; i++) {
         this.imagesNames[i] = "/images/" + new Date().getTime() + i + ".jpg";
       }
       if (this.discountPrice == "") {
@@ -220,10 +267,13 @@ export default {
         formData.append("englishMaterials", this.englishMaterials);
         formData.append("price", this.price);
         formData.append("discountPrice", this.discountPrice);
-        formData.append("sizes", JSON.stringify(this.sizesNames));
-        formData.append("quantities", JSON.stringify(this.quantities));
-        var i = 0;
-        for (i = 0; i < this.images.length; i++) {
+        formData.append("type", this.type);
+        if (!this.isVoucher) {
+          formData.append("sizes", JSON.stringify(this.sizesNames));
+          formData.append("quantities", JSON.stringify(this.quantities));
+        }
+                
+        for (let i = 0; i < this.images.length; i++) {
           let image = this.images[i];
           formData.append("images[" + i + "]", image);
         }
@@ -244,9 +294,55 @@ export default {
     },
     onSizeChanged(name, index) {
       if (this.sizesNames[index]) {
+        console.log('test');
         this.sizesNames[index] = null;
       } else {
         this.sizesNames[index] = name;
+      }
+    },
+    // onVoucherTypeChanged(type, index) {      
+    //   if (this.voucherTypesChecked[index]) {
+    //     this.voucherTypesChecked[index] = null;
+    //   } else {
+    //     this.voucherTypesChecked[index] = type;
+    //   }
+    // },
+    getVoucherTypeName(type) {
+      switch(type) {
+        case 0:
+          return 'Dla par';
+        case 1:
+          return 'Tata i syn';
+        case 2:
+          return 'Mama i syn';
+      }
+    },
+    onTypeChanged(selectedType) {
+      this.type = selectedType;      
+      this.isVoucher = false;
+
+      switch (selectedType) {
+        case 'male':
+          this.displayedSizes = this.sizes.filter((size) => {
+            return (parseInt(size.sizeName) >= 44 && parseInt(size.sizeName) <= 58);
+          })
+          break;
+
+        case 'female':
+          this.displayedSizes = this.sizes.filter((size) => {
+            return (parseInt(size.sizeName) >= 34 && parseInt(size.sizeName) <= 44);
+          })
+          break;
+
+        case 'kid':
+          this.displayedSizes = this.sizes.filter((size) => {
+            return (parseInt(size.sizeName) >= 104 && parseInt(size.sizeName) <= 146);
+          })
+          break;
+        
+        case 'voucher':
+          this.isVoucher = true;
+          break;
       }
     },
     clearDataFields() {
@@ -262,17 +358,29 @@ export default {
       this.sizesChecked = [];
       this.sizesNames = [];
       this.quantities = [];
+      this.type = "male";
+      this.voucherTypesChecked = [];
     },
   },
   created() {
     axios.get("admin/sizes/get").then((response) => {
       this.sizes = response.data;
+
+      this.displayedSizes = this.sizes.filter(size => {        
+        return parseInt(size.sizeName) >= 44 && parseInt(size.sizeName) <= 58
+      });
     });
   },
 };
 </script>
 
 <style lang="scss">
+.type-select{
+  margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
 .english-long-description {
   margin-top: 15px;
 }

@@ -27,11 +27,18 @@
 
                     <div class="product-separator"></div>
                     
+                    <button
+                        class="button sizes-button is-outlined sizes-button--margin"
+                        @click="triggerSizesModal()"
+                    >
+                        <span>{{ $t("messages.sizes-table") }}</span>
+                    </button>
+
                     <p class="label">{{ $t('messages.size') }}</p>
 
                     <div class="buttons are-small size-buttons">
                         <a class="button" v-for="size in sizes" :key="size.id" :disabled="checkQuantity(size)" :class="{ 'active-size':size.id == selected }" @click="selectSize(size)">{{ size.sizeName }}</a>                        
-                    </div>
+                    </div>                    
 
                     <p class="label">{{ $t('messages.quantity') }}</p>
 
@@ -75,7 +82,174 @@
                     </div>
                 </div>
             </div>            
-        </div>        
+        </div>      
+
+        <!-- MALE SIZES MODAL -->
+        <div class="modal" :class="{ 'is-active': maleSizesModalShown }">
+        <div class="modal-background" @click="triggerSizesModal()"></div>
+        <div class="modal-content">
+          <table class="table sizes-modal is-fullwidth">
+            <thead>
+              <tr>
+                <th>Rozmiar</th>
+                <th>44</th>
+                <th>46</th>
+                <th>48</th>
+                <th>50</th>
+                <th>52</th>
+                <th>54</th>
+                <th>56</th>
+                <th>58</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Obwód klatki piersiowej</th>
+                <td>89-92</td>
+                <td>93-96</td>
+                <td>97-100</td>
+                <td>101-104</td>
+                <td>105-108</td>
+                <td>109-112</td>
+                <td>113-116</td>
+                <td>117-120</td>
+              </tr>
+              <tr>
+                <th>Obwód talii</th>
+                <td>83-86</td>
+                <td>87-90</td>
+                <td>91-94</td>
+                <td>95-98</td>
+                <td>99-102</td>
+                <td>103-106</td>
+                <td>107-110</td>
+                <td>111-114</td>
+              </tr>
+              <tr>
+                <th>Długość pleców</th>
+                <td>57</td>
+                <td>57,5</td>
+                <td>58</td>
+                <td>58,5</td>
+                <td>59</td>
+                <td>59,5</td>
+                <td>60</td>
+                <td>60,5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button
+          class="modal-close is-large"
+          aria-label="close"
+          @click="triggerSizesModal()"
+        ></button>
+      </div>
+
+      <!-- FEMALE SIZES MODAL -->
+      <div class="modal" :class="{ 'is-active': femaleSizesModalShown }">
+        <div class="modal-background" @click="triggerSizesModal()"></div>
+        <div class="modal-content">
+          <table class="table sizes-modal is-fullwidth">
+            <thead>
+              <tr>
+                <th>Rozmiar</th>
+                <th>34</th>
+                <th>36</th>
+                <th>38</th>
+                <th>40</th>
+                <th>42</th>
+                <th>44</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Obwód klatki piersiowej</th>
+                <td>77-80</td>
+                <td>81-84</td>
+                <td>85-88</td>
+                <td>89-92</td>
+                <td>93-96</td>
+                <td>97-100</td>
+              </tr>
+              <tr>
+                <th>Obwód talii</th>
+                <td>59-62</td>
+                <td>63-66</td>
+                <td>67-70</td>
+                <td>71-74</td>
+                <td>75-78</td>
+                <td>79-82</td>
+              </tr>
+              <tr>
+                <th>Długość pleców</th>
+                <td>48</td>
+                <td>48,5</td>
+                <td>49</td>
+                <td>49,5</td>
+                <td>50</td>
+                <td>50,5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button
+          class="modal-close is-large"
+          aria-label="close"
+          @click="triggerSizesModal()"
+        ></button>
+      </div>
+
+      <!-- KIDS SIZES MODAL -->
+      <div class="modal" :class="{ 'is-active': kidSizesModalShown }">
+        <div class="modal-background" @click="triggerSizesModal()"></div>
+        <div class="modal-content">
+          <table class="table sizes-modal is-fullwidth">
+            <thead>
+              <tr>
+                <th>Rozmiar</th>
+                <th>104</th>
+                <th>110</th>
+                <th>116</th>
+                <th>122</th>
+                <th>128</th>
+                <th>134</th>
+                <th>140</th>
+                <th>146</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Obwód klatki piersiowej</th>
+                <td>55-57</td>
+                <td>56-58</td>
+                <td>57-59</td>
+                <td>58-62</td>
+                <td>61-65</td>
+                <td>64-68</td>
+                <td>67-71</td>
+                <td>70-74</td>
+              </tr>              
+              <tr>
+                <th>Wzrost</th>      
+                <td>99-104</td>
+                <td>105-110</td>
+                <td>111-116</td>
+                <td>117-122</td>
+                <td>123-128</td>
+                <td>129-134</td>
+                <td>135-140</td>
+                <td>141-146</td>
+            </tr>              
+            </tbody>
+          </table>
+        </div>
+        <button
+          class="modal-close is-large"
+          aria-label="close"
+          @click="triggerSizesModal()"
+        ></button>
+      </div>
     </section>
 </template>
 
@@ -95,7 +269,11 @@ export default {
             addedToCart: false,
             imageSrc: '',
             number: 0,     
-            lang: null       
+            lang: null,
+            
+            maleSizesModalShown: false,
+            femaleSizesModalShown: false,
+            kidSizesModalShown: false
         }
     },
     methods: {
@@ -174,6 +352,21 @@ export default {
                     self.addedToCart = false;                    
                 }, 1000);  
             }            
+        },
+        triggerSizesModal() {
+            switch (this.product.type) {
+                case 'male':
+                    this.maleSizesModalShown = !this.maleSizesModalShown;
+                    break;
+
+                case 'female':
+                    this.femaleSizesModalShown = !this.femaleSizesModalShown;
+                    break;
+
+                case 'kid':
+                    this.kidSizesModalShown = !this.kidSizesModalShown;
+                    break;
+            }                        
         }
     },
     created() {        
@@ -200,6 +393,9 @@ export default {
     @import '~@/_bulma-variables';        
     @import '~@/_variables';      
     
+    .sizes-button--margin {
+        margin: 0.5rem 0 1rem 0 !important;
+    }
     .description-tabs {
         margin-left: -3%;
         margin-top: 2%;
