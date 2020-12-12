@@ -64,7 +64,7 @@
           </div>
         </div>
         <br />
-        <div class="field is-horizontal">
+        <div class="field is-horizontal" v-if="type != 'voucher'">
           <div class="field-body">
             <div class="field">
               <div class="control is-expanded">
@@ -134,44 +134,28 @@
           </div>
         </section>
 
-        <div v-if="!isVoucher">
-          <div class="field" v-for="(size, index) in displayedSizes" :key="index">
-            <div class="control">
-              <label class="checkbox">
-                <input
-                  type="checkbox"
-                  @click="onSizeChanged(size.sizeName, index)"
-                  v-model="sizesChecked[index]"
-                />
-                {{ size.sizeName }}
-              </label>
-            </div>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                placeholder="Stan magazynowy"
-                v-model="quantities[index]"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div v-if="isVoucher">
-          <div class="field" v-for="(voucherType, index) in voucherTypes" :key="index">
-            <div class="control">
-              <label class="checkbox">
-                <input
-                  type="checkbox"                  
-                  v-model="voucherTypesChecked[index]"
-                />
-                {{ getVoucherTypeName(voucherType) }}
-              </label>
-            </div>            
-          </div>
-        </div>
         
-
+        <div class="field" v-for="(size, index) in displayedSizes" :key="index">
+          <div class="control">
+            <label class="checkbox">
+              <input
+                type="checkbox"
+                @click="onSizeChanged(size.sizeName, index)"
+                v-model="sizesChecked[index]"
+              />
+              {{ size.sizeName }}
+            </label>
+          </div>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="Stan magazynowy"
+              v-model="quantities[index]"
+            />
+          </div>
+        </div>        
+        
         <section class="hero is-info welcome is-small">
           <div class="hero-body">
             <div class="container">
@@ -233,9 +217,6 @@ export default {
       isLoading: false,
 
       type: "male",
-      isVoucher: false,
-      voucherTypes: [0, 1, 2],      
-      voucherTypesChecked: []
     };
   },
   methods: {
@@ -246,7 +227,7 @@ export default {
       for (let i = 0; i < this.images.length; i++) {
         this.imagesNames[i] = "/images/" + new Date().getTime() + i + ".jpg";
       }
-      if (this.discountPrice == "") {
+      if (this.discountPrice == "" && this.type != 'voucher') {
         alert("Nalezy podac cenę promocyjną (0 w przypadku braku promocji)");
       } else {        
         this.isLoading = true;
@@ -265,11 +246,11 @@ export default {
         );
         formData.append("longEnglishDescription", this.longEnglishDescription);
         formData.append("englishMaterials", this.englishMaterials);
-        formData.append("price", this.price);
-        formData.append("discountPrice", this.discountPrice);
+        formData.append("price", this.price == '' ? '0' : this.price);
+        formData.append("discountPrice", this.type == 'voucher' ? '0' : this.discountPrice);
         formData.append("type", this.type);
-        if (!this.isVoucher) {
-          formData.append("sizes", JSON.stringify(this.sizesNames));
+        formData.append("sizes", JSON.stringify(this.sizesNames));
+        if (!this.isVoucher) {          
           formData.append("quantities", JSON.stringify(this.quantities));
         }
                 
@@ -293,33 +274,14 @@ export default {
       }
     },
     onSizeChanged(name, index) {
-      if (this.sizesNames[index]) {
-        console.log('test');
+      if (this.sizesNames[index]) {        
         this.sizesNames[index] = null;
       } else {
         this.sizesNames[index] = name;
       }
-    },
-    // onVoucherTypeChanged(type, index) {      
-    //   if (this.voucherTypesChecked[index]) {
-    //     this.voucherTypesChecked[index] = null;
-    //   } else {
-    //     this.voucherTypesChecked[index] = type;
-    //   }
-    // },
-    getVoucherTypeName(type) {
-      switch(type) {
-        case 0:
-          return 'Dla par';
-        case 1:
-          return 'Tata i syn';
-        case 2:
-          return 'Mama i syn';
-      }
-    },
+    },    
     onTypeChanged(selectedType) {
-      this.type = selectedType;      
-      this.isVoucher = false;
+      this.type = selectedType;            
 
       switch (selectedType) {
         case 'male':
@@ -340,8 +302,10 @@ export default {
           })
           break;
         
-        case 'voucher':
-          this.isVoucher = true;
+        case 'voucher':          
+          this.displayedSizes = this.sizes.filter((size) => {
+            return isNaN(size.sizeName);
+          })
           break;
       }
     },
@@ -366,7 +330,8 @@ export default {
     axios.get("admin/sizes/get").then((response) => {
       this.sizes = response.data;
 
-      this.displayedSizes = this.sizes.filter(size => {        
+      this.displayedSizes = this.sizes.filter(size => {     
+        if(isNaN(size.sizeName)) return false;   
         return parseInt(size.sizeName) >= 44 && parseInt(size.sizeName) <= 58
       });
     });

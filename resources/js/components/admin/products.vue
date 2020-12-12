@@ -16,6 +16,7 @@
             <th>Nazwa</th>
             <th>Cena</th>
             <th>Cena promocyjna</th>
+            <th>Rodzaj</th>
             <th>Stan magazynowy</th>
             <th>Akcja</th>
           </tr>
@@ -26,6 +27,7 @@
             <th>Nazwa</th>
             <th>Cena</th>
             <th>Cena promocyjna</th>
+            <th>Rodzaj</th>
             <th>Stan magazynowy</th>
             <th>Akcja</th>
           </tr>
@@ -49,6 +51,7 @@
             >
               {{ product.discountPrice }} zł
             </td>
+            <td>{{ type(product.type) }}</td>
             <td>
               <span v-for="(size, index) in product.sizes" :key="index">{{
                 size.sizeName + "-" + size.pivot.quantity + " "
@@ -362,6 +365,18 @@ export default {
         this.sizesNames[index] = null;
       } else {
         this.sizesNames[index] = name;
+      }
+    },
+    type(productType) {
+      switch(productType) {
+        case 'male':
+          return 'Męska';
+        case 'female':
+          return 'Damska';
+        case 'kid':
+          return 'Dziecięca';
+        case 'voucher':
+          return 'Voucher';
       }
     },
     clearDataFields() {

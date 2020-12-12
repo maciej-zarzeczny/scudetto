@@ -5,6 +5,7 @@
         <thead>
           <tr>
             <th>Nazwa produktu</th>
+            <th>Rodzaj</th>
             <th>Rozmiar</th>
             <th>Ilość</th>
             <th>Cena</th>
@@ -13,6 +14,7 @@
         <tbody>
           <tr v-for="(product, index) in order.products" :key="index">
             <td>{{ product.name }}</td>
+            <td>{{ type(product.type) }}</td>
             <td>{{ product.pivot.size }}</td>
             <td>{{ product.pivot.quantity }}</td>
             <td>{{ price(product) }} zł</td>
@@ -103,10 +105,39 @@ export default {
   },
   methods: {
     price(product) {
-      if (product.discountPrice < product.price && product.discountPrice != 0) {
-        return product.discountPrice * product.pivot.quantity;
+      if (product.type != 'voucher') {
+        if (product.discountPrice < product.price && product.discountPrice != 0) {
+          return product.discountPrice * product.pivot.quantity;
+        } else {
+          return product.price * product.pivot.quantity;
+        }
       } else {
-        return product.price * product.pivot.quantity;
+        const size = product.pivot.size;
+        const quantity = product.pivot.quantity;
+        switch(size) {
+          case 'Dla par':
+            return 550 * quantity;            
+            case 'Tata i Syn':
+              return 500 * quantity;              
+            case 'Mama i Syn':
+              return 450 * quantity;              
+            case 'Kamizelka męska':
+              return 380 * quantity;              
+            case 'Kamizelka damska':
+              return 290 * quantity;              
+        }
+      }      
+    },
+    type(productType) {
+      switch(productType) {
+        case 'male':
+          return 'Męska';
+        case 'female':
+          return 'Damska';
+        case 'kid':
+          return 'Dziecięca';
+        case 'voucher':
+          return 'Voucher';
       }
     },
     statusChanged() {

@@ -55,19 +55,16 @@ class ProductController extends Controller
             'type' => $request->type,
         ]);
         $product->save();
+                
+        $sizes = json_decode($request->sizes);        
+        $quantities = json_decode($request->quantities);
 
-        // Handle sizes if product is not a voucher
-        if ($product->type != 'voucher') {
-            $sizes = json_decode($request->sizes);
-            $quantities = json_decode($request->quantities);
-
-            for ($i=0; $i<count($sizes); $i++) {
+        for ($i=0; $i<count($sizes); $i++) {
             if ($sizes[$i] != null && is_numeric($quantities[$i])) {
                 $product->sizes()->attach(Size::get()->where('sizeName', '==', $sizes[$i])->first(), ['quantity' => $quantities[$i]]);
             }                    
-        }        
-        }        
-
+        }            
+             
         // Handle images
         $imagesNames = json_decode($request->imagesNames);        
 

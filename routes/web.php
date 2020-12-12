@@ -36,9 +36,9 @@ Route::get('company-info', function() {
 
 Route::get('/configurator/sizes/{gender}', function($gender) {  
   if ($gender == 'male') {
-    return \App\Size::where('sizeName', '>=', '44')->orderBy('sizeName')->get();
+    return \App\Size::where('sizeName', '>=', 44)->where('sizeName', '<=', 58)->orderBy('sizeName')->get();
   } else {
-    return \App\Size::where('sizeName', '<=', '44')->orderBy('sizeName')->get();
+    return \App\Size::where('sizeName', '<=', 44)->where('sizeName', '>=', 34)->orderBy('sizeName')->get();
   }  
 });
 Route::get('/configurator/tkanina/{gender}', function($gender) {
@@ -74,11 +74,26 @@ Route::get('/payment/{id}', function($id) {
   
   $products = $order->products;    
   foreach($products as $product) {    
-    if ($product->discountPrice < $product->price && $product->discountPrice != 0) {
-      $amount += $product->discountPrice * $product->pivot->quantity;
+    if ($product->type != 'voucher') {
+      if ($product->discountPrice < $product->price && $product->discountPrice != 0) {
+        $amount += $product->discountPrice * $product->pivot->quantity;
+      } else {
+        $amount += $product->price * $product->pivot->quantity;
+      }
     } else {
-      $amount += $product->price * $product->pivot->quantity;
-    }
+      $size = $product->pivot->size;
+      if ($size == 'Dla par') {
+        $amount += 550 * $product->pivot->quantity;
+      } else if ($size == 'Tata i Syn') {
+        $amount += 500 * $product->pivot->quantity;
+      } else if($size == 'Mama i Syn') {
+        $amount += 450 * $product->pivot->quantity;
+      } else if ($size == 'Kamizelka męska') {
+        $amount += 380 * $product->pivot->quantity;
+      } else if ($size == 'Kamizelka damska') {
+        $amount += 290 * $product->pivot->quantity;
+      }
+    }    
   }
   if ($order->custom_order) {
     $amount += $order->custom_order_price;

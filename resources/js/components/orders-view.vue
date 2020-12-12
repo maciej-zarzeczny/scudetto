@@ -48,13 +48,35 @@ export default {
       var product = "";
       for (i = 0; i < order.products.length; i++) {
         product = order.products[i];
-        if (
+        if (product.type != 'voucher') {
+          if (
           product.discountPrice <= product.price &&
           product.discountPrice != 0
-        ) {
-          total += product.discountPrice * product.pivot.quantity;
+          ) {
+            total += product.discountPrice * product.pivot.quantity;
+          } else {
+            total += product.price * product.pivot.quantity;
+          }
         } else {
-          total += product.price * product.pivot.quantity;
+          const size = product.pivot.size;
+          const quantity = product.pivot.quantity;
+          switch (size) {
+            case 'Dla par':
+              total += 550 * quantity;
+              break;
+            case 'Tata i Syn':
+              total += 500 * quantity;
+              break;
+            case 'Mama i Syn':
+              total += 450 * quantity;
+              break;
+            case 'Kamizelka męska':
+              total += 380 * quantity;
+              break;
+            case 'Kamizelka damska':
+              total += 290 * quantity;
+              break;
+          }
         }
       }
       if (order.custom_order) {

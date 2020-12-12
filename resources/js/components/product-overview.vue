@@ -19,15 +19,18 @@
                 </div>
                 <div class="column">
                     <h1>{{ product.name }}</h1>
-                    <div class="prices">
+                    <div class="prices" v-if="!isVoucher">
                         <strong><p class="product-price" :class="{ 'old-price': isOnSale }">{{ product.price }} zł</p></strong>
                         <strong><p class="product-price" :class="{ 'new-price': isOnSale }" v-if="isOnSale">{{ product.discountPrice }} zł</p></strong>
+                    </div>
+                    <div class="prices" v-if="isVoucher && voucherPrice != null">
+                        <strong><p class="product-price">{{ voucherPrice }} zł</p></strong>
                     </div>
                     <p class="product-description">{{ lang == 'pl' ? product.shortDescription : product.shortEnglishDescription }}</p>
 
                     <div class="product-separator"></div>
                     
-                    <button
+                    <button v-if="!isVoucher"
                         class="button sizes-button is-outlined sizes-button--margin"
                         @click="triggerSizesModal()"
                     >
@@ -269,11 +272,13 @@ export default {
             addedToCart: false,
             imageSrc: '',
             number: 0,     
-            lang: null,
+            lang: null,            
             
             maleSizesModalShown: false,
             femaleSizesModalShown: false,
-            kidSizesModalShown: false
+            kidSizesModalShown: false,
+            isVoucher: false,
+            voucherPrice: null
         }
     },
     methods: {
@@ -297,7 +302,8 @@ export default {
                 this.selected = size.id;
                 if (this.quantity >= size.pivot.quantity - 1) {
                     this.quantity = size.pivot.quantity;
-                }
+                }       
+                this.voucherPrice = this.calculatePrice(size.sizeName);         
             }         
         },
         checkQuantity(size) {
@@ -331,6 +337,24 @@ export default {
             this.activeTabs = [false, false];
             this.activeTabs[tab_number] = true;            
         },
+        calculatePrice(sizeName) {            
+            switch(sizeName) {
+                case 'Dla par':
+                    return 550;
+
+                case 'Tata i Syn':
+                    return 500;
+
+                case 'Mama i Syn':
+                    return 450;
+
+                case 'Kamizelka damska':
+                    return 290;
+
+                case 'Kamizelka męska':
+                    return 380;
+            }
+        },
         addToCart() {                        
             var selectedSize = '';
             for (var i=0; i<this.sizes.length; i++) {                
@@ -345,12 +369,15 @@ export default {
                 this.addedToCart = true;     
                 this.product.amount = this.quantity;  
                 this.product.size = selectedSize;
-                this.product.imageUrl = this.images[0].image_url;
+                this.product.imageUrl = this.images[0].image_url;      
+                if (this.isVoucher) {
+                    this.product.price = this.voucherPrice;
+                }          
                 cart.addProduct(this.product);
                 var self = this;
                 setTimeout(function() {
                     self.addedToCart = false;                    
-                }, 1000);  
+                }, 2000);  
             }            
         },
         triggerSizesModal() {
@@ -381,6 +408,9 @@ export default {
                 return 1
             return 0 
         })
+        if (this.product.type == 'voucher') {
+            this.isVoucher = true;            
+        }
         this.imageSrc = this.images[0].image_url;
         axios.get('/language').then(response => {
             this.lang = response.data

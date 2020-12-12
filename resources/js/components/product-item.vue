@@ -26,9 +26,10 @@
               <div class="prices">
                 <strong>
                   <p
+                    v-if="product.type != 'voucher'"
                     class="main-product-price"
                     :class="{ 'product-old-price': isOnSale }"
-                  >{{ product.price }} zł</p>
+                  >{{ product.price }} zł</p>                  
                 </strong>
                 <strong>
                   <p

@@ -108,11 +108,26 @@ class OrderController extends Controller
             if (!isset($product->customProduct))
             {                
                 $order->products()->attach(Product::find($product->id), ['quantity' => $product->amount, 'size' => $product->size]);
-                if ($product->discountPrice < $product->price && $product->discountPrice != 0) {
-                    $amount += $product->discountPrice * $product->amount;                    
+                if ($product->type != 'voucher') {
+                    if ($product->discountPrice < $product->price && $product->discountPrice != 0) {
+                        $amount += $product->discountPrice * $product->amount;                    
+                    } else {
+                        $amount += $product->price * $product->amount;
+                    }                
                 } else {
-                    $amount += $product->price * $product->amount;
-                }                
+                    $size = $product->size;
+                    if ($size == 'Dla par') {
+                        $amount += 550 * $product->amount;
+                    } else if ($size == 'Tata i Syn') {
+                        $amount += 500 * $product->amount;
+                    } else if($size == 'Mama i Syn') {
+                        $amount += 450 * $product->amount;
+                    } else if ($size == 'Kamizelka męska') {
+                        $amount += 380 * $product->amount;
+                    } else if ($size == 'Kamizelka damska') {
+                        $amount += 290 * $product->amount;
+                    }
+                }
             }
             else 
             {
