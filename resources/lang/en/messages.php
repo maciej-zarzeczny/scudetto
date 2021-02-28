@@ -79,6 +79,7 @@ return [
     'shipping-method-1' => 'Local shipping - 15zł',
     'shipping-method-2' => 'Abroad shipping - 50zł',
     'shipping-method-3' => 'Self-pickup - 0zł',
+    'free-delivery' => 'Free delivery - 0zł',
     'configurator-price' => 'Price: ',
     'about-us-content' => 'Scudetto is a hand manufacture creating unique vests that can be not only an
                             addition to an elegant suit but also a key part of your wardrobe in the casual                        

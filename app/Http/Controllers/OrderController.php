@@ -139,9 +139,9 @@ class OrderController extends Controller
             $amount *= (1 - ($order->discount / 100));
         }
 
-        if ($order->shipping == '1') {
+        if ($order->shipping == '1' && $order->discount < 100) {
             $amount += 15;
-        } else if($order->shipping == '2') {
+        } else if($order->shipping == '2' && $order->dicount < 100) {
             $amount += 50;
         }
 

@@ -79,6 +79,7 @@ return [
     'shipping-method-1' => 'Przesyłka krajowa - 15zł',
     'shipping-method-2' => 'Przesyłka między-krajowa - 50zł',
     'shipping-method-3' => 'Odbiór osobisty - 0zł',
+    'free-delivery' => 'Darmowa wysyłka - 0zł',
     'configurator-price' => 'Cena: ',
     'about-us-content' => 'Scudetto to manufaktura zajmująca się tworzeniem wyjątkowych kamizelek, które mogą być nie tylko dodatkiem do eleganckiego garnituru, ale i kluczową częścią Twojej garderoby w mniej oficjalnych momentach Twojego życia. Korzystając z materiałów wysokiej jakości dajemy Ci małą tarczę, z włoskiego właśnie Scudetto, dzięki czemu nigdy nie zabraknie Ci szyku i elegancji. Czerpiąc wzorce z początku XX wieku, wprowadzamy kamizelki do mody ulicznej początku XXI wieku. Frywolność obecnych czasów i zaawansowana technologia daje nam możliwość połączenia tych dwóch światów. Możesz wybrać, czy chcesz zamówić gotową kamizelkę, czy stworzyć wyjątkową całkowicie spersonalizowaną. Ten wybór pozostawiamy Tobie, dając Ci do tego narzędzia.',
     'terms-title' => 'KRÓTKI, PROSTY, ALE CZYTELNY REGULAMIN ZAKUPÓW SKLEPU INTERNETOWEGO scudetto.store',

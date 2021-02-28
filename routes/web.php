@@ -99,6 +99,11 @@ Route::get('/payment/{id}', function($id) {
     $amount += $order->custom_order_price;
   }
 
+  $isVoucher = false;
+  if ($order->discount == 100) {
+    $isVoucher = true;
+  }
+
   $discountAmount = 0;
   if ($order->discount != null && $order->discount != 0) {
     $discountAmount = $amount * (1 - ($order->discount / 100));
@@ -116,7 +121,7 @@ Route::get('/payment/{id}', function($id) {
     }    
   }
 
-  return view('payment', compact('number', 'amount', 'discountAmount', 'email'));
+  return view('payment', compact('number', 'amount', 'discountAmount', 'email', 'isVoucher'));
 });
 
 Route::resource('coupons', 'CouponController');

@@ -101,7 +101,8 @@ export default {
         email: null,
         number: null,
         amount: null,
-        discountamount: null
+        discountamount: null,
+        isVoucher: null
     },
     data() {
         return {
@@ -137,8 +138,6 @@ export default {
                     sessionId: sessionId
                 })
                 .then(res => {
-                    console.log(res);
-                    console.log(res.data.data.token);
                     if (res.data.data.token != undefined) {
                         window.location.href =
                             "https://secure.przelewy24.pl/trnRequest/" +
