@@ -1,5 +1,5 @@
 <template>
-    <section class="about">
+    <section class="about" id="about-us">
         <div class="about__slideshow">
             <img
                 src="/images/page/landing-page/3.jpg"
