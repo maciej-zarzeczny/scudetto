@@ -46,9 +46,9 @@ class GalleryImageController extends Controller
             $image = $request->file('images')[$i];            
             $resizedImage = Image::make($image->getRealPath());
 
-            $resizedImage->resize(300, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
+            // $resizedImage->resize(300, null, function ($constraint) {
+            //     $constraint->aspectRatio();
+            // });
 
             $target_path = public_path($imagesUrls[$i]);
 
