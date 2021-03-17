@@ -63,7 +63,7 @@
                   :disabled="tkaniny[tkaninyIndex].quantity == 0"
                 >
                   <figure
-                    class="image is-32x32"
+                    class="image hoverableImage"
                     @click="tkaninaChange(index, columnIndex)"
                   >
                     <img
@@ -155,7 +155,7 @@
                   :disabled="podszewki[podszewkiIndex].quantity == 0"
                 >
                   <figure
-                    class="image is-32x32"
+                    class="image hoverableImage"
                     @click="podszewkaChange(index, columnIndex)"
                   >
                     <img
@@ -199,7 +199,7 @@
       <span class="txt">{{ $t("messages.buttons") }}</span>
       <p class="buttons choice-container2" v-if="guzikiReady">
         <a class="button" v-for="(guzik, index) in guziki" :key="index">
-          <figure class="image is-32x32" @click="changeGuziki(guzik)">
+          <figure class="image hoverableImage" @click="changeGuziki(guzik)">
             <img :src="guzik.icon_url" alt="Button icon" />
           </figure>
         </a>

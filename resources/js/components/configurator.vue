@@ -70,20 +70,19 @@
                                     "
                                 >
                                     <figure
-                                        class="image is-32x32"
+                                        class="image hoverableImage"
                                         @click="
                                             tkaninaChange(index, columnIndex)
                                         "
                                     >
-                                        <zoom-on-hover
+                                        <img
                                             v-once
-                                            :img-normal="
+                                            :src="
                                                 tkaniny[tkaninyIndex].icon_url
-                                            "
-                                            :scale="2"
+                                            "                                            
                                             alt="Material icon"
                                             v-show="renderTkaniny"
-                                        ></zoom-on-hover>
+                                        />
                                     </figure>
                                     {{ incrementTkaniny() }}
                                 </a>
@@ -180,21 +179,19 @@
                                     "
                                 >
                                     <figure
-                                        class="image is-32x32"
+                                        class="image hoverableImage"
                                         @click="
                                             podszewkaChange(index, columnIndex)
                                         "
                                     >
-                                        <zoom-on-hover
-                                            v-once
-                                            :img-normal="
+                                    <img v-once
+                                            :src="
                                                 podszewki[podszewkiIndex]
                                                     .icon_url
-                                            "
-                                            :scale="2"
+                                            "                                            
                                             alt="Fleece icon"
-                                            v-show="renderPodszewki"
-                                        ></zoom-on-hover>
+                                            v-show="renderPodszewki" />
+                                        
                                     </figure>
                                     {{ incrementPodszewki() }}
                                 </a>
@@ -230,7 +227,7 @@
             <span class="txt">{{ $t("messages.buttons") }}</span>
             <p class="buttons choice-container2" v-if="guzikiReady">
                 <a class="button" v-for="(guzik, index) in guziki" :key="index">
-                    <figure class="image is-32x32" @click="changeGuziki(guzik)">
+                    <figure class="image hoverableImage" @click="changeGuziki(guzik)">
                         <img :src="guzik.icon_url" alt="Button icon" />
                     </figure>
                 </a>
@@ -686,6 +683,10 @@ export default {
     color: $accent_color;
     border-color: $accent_color;
 }
+.hoverableImage {
+    width: 32px;
+    height: 32px;
+}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 525px) {
@@ -696,7 +697,7 @@ export default {
         margin-top: 325px;
         margin-bottom: 325px;
         margin-right: 0;
-    }
+    }    
 }
 @media only screen and (min-width: 525px) {
     .images-container {
@@ -706,7 +707,7 @@ export default {
         margin-top: 500px;
         margin-bottom: 500px;
         margin-right: 0;
-    }
+    }    
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 772px) {
@@ -735,9 +736,13 @@ export default {
     }
 }
 
-@media only screen and (min-width: 1600px) {
+@media only screen and (min-width: 1650px) {
     .images-container {
         min-height: 575px;
+    }    
+    .hoverableImage {
+        width: 64px;
+        height: 64px;
     }
 }
 @media only screen and (min-width: 1725px) {
