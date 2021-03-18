@@ -62,6 +62,7 @@
                             v-for="(material, idx) in tkaniny"
                             :key="idx"
                             :src="material.icon_url"
+                            @click="tkaninaChange(idx)"
                             alt="Material icon"
                             class="material-icon"
                         />
@@ -144,6 +145,7 @@
                             v-for="(fleece, idx) in podszewki"
                             :key="idx"
                             :src="fleece.icon_url"
+                            @click="podszewkaChange(idx)"
                             alt="Fleece icon"
                             class="material-icon"
                         />
@@ -287,14 +289,12 @@ export default {
         };
     },
     methods: {
-        tkaninaChange(index, columnIndex) {
-            let idx = (index - 1) * 3 + columnIndex - 1;
+        tkaninaChange(idx) {
             if (this.tkaniny[idx].quantity == 0) return;
 
             this.tkaninyNumber = idx;
         },
-        podszewkaChange(index, columnIndex) {
-            let idx = (index - 1) * 3 + columnIndex - 1;
+        podszewkaChange(idx) {
             if (this.podszewki[idx].quantity == 0) return;
 
             this.podszewkiNumber = idx;
