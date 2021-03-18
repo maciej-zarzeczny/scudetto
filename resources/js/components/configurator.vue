@@ -53,41 +53,15 @@
                 <!-- TKANINY -->
                 <div class="column" :class="columnSize">
                     <span class="txt">{{ $t("messages.tkanina") }}</span>
-                    <div class="choice-container-parent">
-                        <div v-if="tkaninyReady">
-                            <p
-                                class="buttons choice-container"
-                                v-for="index in Math.ceil(tkaniny.length / 3)"
-                                :key="index"
-                            >
-                                <a
-                                    class="button"
-                                    v-for="columnIndex in 3"
-                                    v-once
-                                    :key="columnIndex"
-                                    :disabled="
-                                        tkaniny[tkaninyIndex].quantity == 0
-                                    "
-                                >
-                                    <figure
-                                        class="image hoverableImage"
-                                        @click="
-                                            tkaninaChange(index, columnIndex)
-                                        "
-                                    >
-                                        <img
-                                            v-once
-                                            :src="
-                                                tkaniny[tkaninyIndex].icon_url
-                                            "                                            
-                                            alt="Material icon"
-                                            v-show="renderTkaniny"
-                                        />
-                                    </figure>
-                                    {{ incrementTkaniny() }}
-                                </a>
-                            </p>
-                        </div>
+
+                    <div class="material-container" v-if="renderTkaniny">
+                        <img
+                            v-for="(material, idx) in tkaniny"
+                            :key="idx"
+                            :src="material.icon_url"
+                            alt="Material icon"
+                            class="material-icon"
+                        />
                     </div>
                 </div>
                 <!-- PREVIEW -->
@@ -162,41 +136,14 @@
                 <!-- PODSZEWKI -->
                 <div class="column" :class="columnSize">
                     <span class="txt">{{ $t("messages.podszewka") }}</span>
-                    <div class="choice-container-parent">
-                        <div v-if="podszewkiReady">
-                            <p
-                                class="buttons choice-container"
-                                v-for="index in Math.ceil(podszewki.length / 3)"
-                                :key="index"
-                            >
-                                <a
-                                    class="button"
-                                    v-once
-                                    v-for="columnIndex in 3"
-                                    :key="columnIndex"
-                                    :disabled="
-                                        podszewki[podszewkiIndex].quantity == 0
-                                    "
-                                >
-                                    <figure
-                                        class="image hoverableImage"
-                                        @click="
-                                            podszewkaChange(index, columnIndex)
-                                        "
-                                    >
-                                    <img v-once
-                                            :src="
-                                                podszewki[podszewkiIndex]
-                                                    .icon_url
-                                            "                                            
-                                            alt="Fleece icon"
-                                            v-show="renderPodszewki" />
-                                        
-                                    </figure>
-                                    {{ incrementPodszewki() }}
-                                </a>
-                            </p>
-                        </div>
+                    <div class="material-container" v-show="podszewkiReady">
+                        <img
+                            v-for="(fleece, idx) in podszewki"
+                            :key="idx"
+                            :src="fleece.icon_url"
+                            alt="Fleece icon"
+                            class="material-icon"
+                        />
                     </div>
                 </div>
             </div>
@@ -227,7 +174,10 @@
             <span class="txt">{{ $t("messages.buttons") }}</span>
             <p class="buttons choice-container2" v-if="guzikiReady">
                 <a class="button" v-for="(guzik, index) in guziki" :key="index">
-                    <figure class="image hoverableImage" @click="changeGuziki(guzik)">
+                    <figure
+                        class="image hoverableImage"
+                        @click="changeGuziki(guzik)"
+                    >
                         <img :src="guzik.icon_url" alt="Button icon" />
                     </figure>
                 </a>
@@ -534,6 +484,24 @@ export default {
 @import "~@/_bulma-variables.scss";
 @import "~@/_variables.scss";
 
+.material-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    gap: 15px;
+    margin: 0 auto;
+    margin-top: 20px;
+    max-width: 268px;
+}
+.material-icon {
+    justify-self: center;
+    width: 64px;
+    height: 64px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+.material-icon:hover {
+    transform: scale(2);
+}
 .configurator-container {
     padding-top: 150px;
     height: 100vh;
@@ -684,8 +652,8 @@ export default {
     border-color: $accent_color;
 }
 .hoverableImage {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -697,7 +665,7 @@ export default {
         margin-top: 325px;
         margin-bottom: 325px;
         margin-right: 0;
-    }    
+    }
 }
 @media only screen and (min-width: 525px) {
     .images-container {
@@ -707,7 +675,7 @@ export default {
         margin-top: 500px;
         margin-bottom: 500px;
         margin-right: 0;
-    }    
+    }
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 772px) {
@@ -739,7 +707,7 @@ export default {
 @media only screen and (min-width: 1650px) {
     .images-container {
         min-height: 575px;
-    }    
+    }
     .hoverableImage {
         width: 64px;
         height: 64px;
