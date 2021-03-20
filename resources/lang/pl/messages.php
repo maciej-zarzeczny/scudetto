@@ -8,6 +8,8 @@ return [
     'shop' => 'Sklep',
     'configurator' => 'Kreator',
     'configurator_subtitle' => 'Stwórz własną kamizelkę',
+    'male_configurator' => 'Kreator męski',
+    'female_configurator' => 'Kreator damski',
     'gallery' => 'Galeria',
     'add_to_cart' => 'Dodaj do koszyka',
     'product_description' => 'Opis',

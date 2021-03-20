@@ -7,6 +7,8 @@ return [
     'guide' => 'Guide',
     'shop' => 'Shop',
     'configurator' => 'Creator',
+    'male_configurator' => 'Male creator',
+    'female_configurator' => 'Female creator',
     'configurator_subtitle' => 'Create your own vest',
     'gallery' => 'Gallery',
     'add_to_cart' => 'Add to cart',
