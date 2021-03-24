@@ -21,6 +21,8 @@ public/hot
 public_html/storage
 public_html/hot
 public/images/*
+public/images/creator/*.jpg
+public/images/creator/*.png
 
 storage/*.key
 .env
