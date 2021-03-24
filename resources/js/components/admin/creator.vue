@@ -1696,6 +1696,7 @@ export default {
                 }
             }
 
+            console.log(highestNumber, `p${highestNumber + 1}`);
             return `p${highestNumber + 1}`;
         },
         updatePodszewkaAmount() {
