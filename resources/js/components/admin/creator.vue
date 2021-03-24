@@ -1657,7 +1657,7 @@ export default {
                 if (this.podszewki.length == 0) {
                     podszewkaName = "p1";
                 } else {
-                    podszewkaName = this.generateFleeceName();
+                    podszewkaName = this.generateName();
                 }
             } else {
                 podszewkaName = this.podszewki[this.choosedPodszewka].name;
@@ -1685,7 +1685,7 @@ export default {
                     alert("Wystąpił błąd: " + error);
                 });
         },
-        generateFleeceName() {
+        generateName() {
             let highestNumber = 0;
             for (let i = 0; i < this.podszewki.length; i++) {
                 const fleeceNumber = Number(
@@ -1696,7 +1696,6 @@ export default {
                 }
             }
 
-            console.log(highestNumber, `p${highestNumber + 1}`);
             return `p${highestNumber + 1}`;
         },
         updatePodszewkaAmount() {
@@ -1722,7 +1721,7 @@ export default {
             if (this.podszewki.length == 0) {
                 podszewkaName = "p1";
             } else {
-                podszewkaName = "p" + String(this.podszewki.length + 1);
+                podszewkaName = this.generateName();
             }
             axios
                 .post("podszewka", {
